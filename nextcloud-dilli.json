@@ -3,18 +3,18 @@
     "container_links": {
       "nextcloud": [
         {
-          "name": "db_nextcloud",
+          "name": "db",
           "source_container": "nextcloud-mariadb"
         }
       ]
     },
     "containers": {
       "nextcloud": {
-        "image": "wonderfall/nextcloud",
-        "tag": "10.0",
+        "image": "indiehosters/nextcloud",
+        "tag": "latest",
         "launch_order": 2,
         "ports": {
-          "80": {
+          "9000": {
             "description": "Nextcloud Web port. Suggested default: 8080",
             "host_default": 8080,
             "label": "Web port",
@@ -23,17 +23,17 @@
           }
         },
         "volumes": {
-          "/config": {
+          "/data/config": {
             "description": "Choose a Share for the configuration file. Eg: create a Share called nextcloud-config for this purpose alone.",
             "label": "Config Storage",
             "min_size": 1073741824
           },
-          "/data": {
+          "/data/data": {
             "description": "Choose a Share for the data. Eg: create a Share called nextcloud-data for this purpose alone.",
             "label": "Data Storage",
             "min_size": 1073741824
           },
-          "/apps2": {
+          "/data/apps": {
             "description": "Choose a Share for downloaded apps. Eg: create a Share called nextcloud-apps for this purpose alone.",
             "label": "Apps Storage",
             "min_size": 1073741824
@@ -49,6 +49,12 @@
             "description": "Choose a Share for Nextcloud's database. Eg: create a Share called nextcloud-db for this purpose alone.",
             "label": "DB Storage",
             "min_size": 1073741824
+          }
+        },
+        "environment": {
+          "MYSQL_ROOT_PASSWORD": {
+            "description": "Set the password of the DB root user",
+            "label": "DB root password"
           }
         }
       }
