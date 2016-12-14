@@ -1,7 +1,7 @@
 {
     "tt-rss": {
         "description": "Tiny Tiny RSS web-based news feed (RSS/Atom) reader and aggregator",
-        "version": "0.1",
+        "version": "1.0.0",
         "website": "https://tt-rss.org/gitlab/fox/tt-rss",
         "more_info": "",
         "containers": {
@@ -10,7 +10,7 @@
                 "tag": "latest",
                 "launch_order": 1,
                 "ports": {
-                    "8080": {
+                    "80": {
                         "description": "tt-rss Web port. Suggested default: 8080",
                         "host_default": 8080,
                         "label": "Web port",
@@ -19,16 +19,13 @@
                     }
                 },
                 "volumes": {
-                    "/config": {
+                    "/var/www/ttrss": {
                         "description": "Choose a Share for the configuration files. Eg: create a Share called tt-rss-config for this purpose alone.",
                         "label": "Config Storage",
                         "min_size": 1073741824
                     }
                 }
-            },
-            "ui": {
-                "https": false,
-                "slug": ""
             }
-      }
+        }
+    }
 }
