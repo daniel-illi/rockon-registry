@@ -4,11 +4,19 @@
         "version": "1.0.0",
         "website": "https://tt-rss.org/gitlab/fox/tt-rss",
         "more_info": "",
+        "container_links": {
+            "tt-rss": [
+                {
+                    "name": "db",
+                    "source_container": "tt-rss-postgres"
+                }
+            ]
+        },
         "containers": {
             "tt-rss": {
                 "image": "x86dev/docker-ttrss",
                 "tag": "latest",
-                "launch_order": 1,
+                "launch_order": 2,
                 "ports": {
                     "80": {
                         "description": "tt-rss Web port. Suggested default: 8080",
@@ -18,11 +26,40 @@
                         "ui": true
                     }
                 },
+                "environment": {
+                    "DB_ENV_USER": {
+                        "description": "Repeat the name for the database admin user",
+                        "label": "DB admin username",
+                        "index": 1
+                    },
+                    "DB_ENV_PASS": {
+                        "description": "Repeat the password for the database admin user",
+                        "label": "DB admin password",
+                        "index": 2
+                    }
+                }
+            },
+            "tt-rss-postgres": {
+                "image": "postgres",
+                "tag": "9.5",
+                "launch_order": 1,
                 "volumes": {
-                    "/var/www/ttrss": {
-                        "description": "Choose a Share for the configuration files. Eg: create a Share called tt-rss-config for this purpose alone.",
-                        "label": "Config Storage",
+                    "/var/lib/postgresql/data": {
+                        "description": "Choose a Share for tt-rss's postgresql database. Eg: create a Share called ttrss-db for this purpose alone.",
+                        "label": "DB Storage",
                         "min_size": 1073741824
+                    }
+                },
+                "environment": {
+                    "POSTGRES_USER": {
+                        "description": "Choose the name for the database admin user",
+                        "label": "DB admin username",
+                        "index": 1
+                    },
+                    "POSTGRES_PASSWORD": {
+                        "description": "Choose a secure password for the database admin user",
+                        "label": "DB admin password",
+                        "index": 2
                     }
                 }
             }
