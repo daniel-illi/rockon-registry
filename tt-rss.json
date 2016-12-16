@@ -40,7 +40,7 @@
                 }
             },
             "tt-rss-postgres": {
-                "image": "postgres",
+                "image": "illi/postgres",
                 "tag": "9.5",
                 "launch_order": 1,
                 "volumes": {
